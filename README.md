@@ -59,8 +59,28 @@
   
 ```
 {
-  "id": 1,
+  "id": 6,
   "name": "DragonFruit",
   "calories": "50"
 }
 ```
+
+#### PATCH /api/v1/foods/:id  
+- Update an existing food 
+- ***Only field(s) updated are required parameters.*** 
+- If the food is not successfully updated, a 400 status code will be returned.
+- If successful, this request will return a response in the following format:
+  
+```
+{
+  "id": 6,
+  "name": "DragonFruit",
+  "calories": "70"
+}
+```
+
+#### DELETE /api/v1/foods/:id
+- Delete and exisiting food 
+- If the food can’t be found, a 404 will be returned.
+- If successful, the request will return a 204 status code.
+

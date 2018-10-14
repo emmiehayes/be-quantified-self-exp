@@ -1,35 +1,35 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
 
-const environment = process.env.NODE_ENV || 'development';
-const configuration = require('./knexfile')[environment];
-const database = require('knex')(configuration);
+const environment = process.env.NODE_ENV || 'development'
+const configuration = require('./knexfile')[environment]
+const database = require('knex')(configuration)
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Quantified Self';
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.set('port', process.env.PORT || 3000)
+app.locals.title = 'Quantified Self'
 
 app.get('/', (request, response) => {
-  response.send('Welcome to Quantified Self!');
-});
+  response.send('Welcome to Quantified Self!')
+})
 
 app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on ${app.get('port')}.`);
-});
+  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+})
 
 
 // GET all foods
 app.get('/api/v1/foods', (request, response) => {
   database('foods').select()
     .then((foods) => {
-      response.status(200).json(foods);
+      response.status(200).json(foods)
     })
     .catch((error) => {
-      response.status(500).json({ error });
-    });
-});
+      response.status(500).json({ error })
+    })
+})
 
 
 // GET specific food
@@ -37,28 +37,28 @@ app.get('/api/v1/foods/:id', (request, response) => {
   database('foods').where('id', request.params.id).select()
     .then(foods => {
       if (foods.length) {
-        response.status(200).json(foods);
+        response.status(200).json(foods)
       } else {
         response.status(404).json({
           error: `Could not find paper with id ${request.params.id}`
-        });
+        })
       }
     })
     .catch(error => {
-      response.status(500).json({ error });
-    });
-});
+      response.status(500).json({ error })
+    })
+})
 
 
 // POST new food
 app.post('/api/v1/foods', (request, response) => {
-  const food = request.body;
+  const food = request.body
 
   for (let requiredParameter of ['name', 'calories']) {
     if (!food[requiredParameter]) {
       return response
         .status(422)
-        .send({ error: `Expected format: { name: <String>, calories: <String> }. You're missing a "${requiredParameter}" property.` });
+        .send({ error: `Expected format: { name: <String>, calories: <String> }. You're missing a "${requiredParameter}" property.` })
     }
   }
   database('foods').insert(food, 'id')
@@ -68,6 +68,19 @@ app.post('/api/v1/foods', (request, response) => {
     .catch(error => {
       response.status(500).json({ error })
     })
-});
+})
+
+
+// DELETE specific food
+app.delete('/api/v1/foods/:id', (request, response) => {
+  database('foods').where({ id: request.params.id }).del()
+    .then(() => {
+      response.status(204).json()
+    })
+    .catch((error) => {
+      response.status(404).json({ error })
+    })
+})
 
 module.exports = app;
+
