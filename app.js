@@ -29,4 +29,23 @@ app.get('/api/v1/foods', (request, response) => {
     });
 });
 
+app.post('/api/v1/foods', (request, response) => {
+  const food = request.body;
+
+  for (let requiredParameter of ['name', 'calories']) {
+    if (!food[requiredParameter]) {
+      return response
+        .status(422)
+        .send({ error: `Expected format: { name: <String>, calories: <String> }. You're missing a "${requiredParameter}" property.` });
+    }
+  }
+  database('foods').insert(food, 'id')
+    .then(food => {
+      response.status(201).json({ id: food[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+});
+
 module.exports = app;
