@@ -89,6 +89,14 @@ describe('API Routes', () => {
           done()
         })
     })
+    it('should return a 404 if the id does not exist', done => {
+      chai.request(server)
+        .get('/api/v1/foods/765')
+        .end((err, response) => {
+          response.should.have.status(404)
+          done()
+        })
+    })
   })
 })
 
