@@ -59,9 +59,7 @@
   
 ```
 {
-  "id": 6,
-  "name": "DragonFruit",
-  "calories": "50"
+  "id": 6
 }
 ```
 

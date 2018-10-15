@@ -116,30 +116,52 @@ describe('API Routes', () => {
         .end((err, response) => {
           response.should.have.status(422)
           response.body.error.should.equal(
-            `Expected format: { name: <String>, calories: <String> }. You're missing a "calories" property.`
+            `Expected format: { name: <String>, calories: <String> }.`
           )
           done()
         })
     })
   })
 
-  describe('DELETE /api/v1/foods/:id', () => {
-    it('should delete a food', done => {
-      chai.request(server)
-        .delete('/api/v1/foods/6')
-        .end((err, response) => {
-          response.should.have.status(204)
-          done()
-        })
-    })
+  // describe('DELETE /api/v1/foods/:id', () => {
+  //   it('should delete a food', done => {
+  //     chai.request(server)
+  //       .delete('/api/v1/foods/6')
+  //       .end((err, response) => {
+  //         response.should.have.status(204)
+  //         done()
+  //       })
+  //   })
 
-    it('should return a 404 if food does not exist in database', done => {
-      chai.request(server)
-        .delete('/api/v1/foods/6')
-        .end((err, response) => {
-          response.should.have.status(204)
-          done()
-        })
-    })
-  })
+  //   it('should return a 404 if food does not exist in database', done => {
+  //     chai.request(server)
+  //       .delete('/api/v1/foods/156')
+  //       .end((err, response) => {
+  //         response.should.have.status(404)
+  //         done()
+  //       })
+  //   })
+  // })
+
+  // describe('PATCH /api/v1/foods/:id', () => {
+  //   it('should update a food', done => {
+  //     chai.request(server)
+  //       .patch('/api/v1/foods/1')
+  //       .send({
+  //         name: 'example',
+  //         calories: 'example1'
+  //       })
+  //       .end((err, response) => {
+  //         response.should.have.status(204)
+  //         response.should.be.json
+  //         response.body.should.have.property('id')
+  //         response.body.id.should.equal(1)
+  //         response.body.should.have.property('name')
+  //         response.body.name.should.equal("example")
+  //         response.body.should.have.property('calories')
+  //         response.body.calories.should.equal("example1")
+  //         done()
+  //       })
+  //   })
+  // })
 })
