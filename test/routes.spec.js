@@ -138,6 +138,14 @@ describe('API Routes', () => {
           done()
         })
     })
+    it('should return a 404 if the food is not found', done => {
+      chai.request(server)
+        .delete('/api/v1/foods/678')
+        .end((error, response) => {
+          response.should.have.status(404)
+          done()
+        })
+    })
   })
 })
 
