@@ -1,14 +1,18 @@
-
-exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
-  return knex('meals').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('meals').insert([
-        { id: 1, name: 'Breakfast' },
-        { id: 2, name: 'Lunch' },
-        { id: 3, name: 'Dinner' },
-        { id: 4, name: 'Snack' }
-      ]);
-    });
-};
+exports.seed = function (knex, Promise) {
+      return Promise.all([
+        knex('meals').insert({
+          id: 1, name: 'Breakfast'
+        }),
+        knex('meals').insert({
+          id: 2, name: 'Lunch'
+        }),
+        knex('meals').insert({
+          id: 3, name: 'Dinner'
+        }),
+        knex('meals').insert({
+          id: 4, name: 'Snack'
+        })
+        .then(() => console.log('Seeding Meals complete'))
+        .catch(error => console.log(`Error seeding meals data: ${error}`))
+      ])
+    }
