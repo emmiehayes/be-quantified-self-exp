@@ -163,5 +163,33 @@ describe('API Routes', () => {
           done()
         })        
     })
+
+    it('should return a 404 if the food is not found', done => {
+      chai.request(server)
+        .patch('/api/v1/foods/679')
+        .send({
+          name: 'example',
+          calories: 'example1'
+        })
+        .end((err, response) => {
+          response.should.have.status(404)
+          done()
+        })
+    })
+
+    it('should return a 422 if the request is missing data', done => {
+      chai.request(server)
+        .patch('/api/v1/foods/679')
+        .send({
+          calories: 'example1'
+        })
+        .end((err, response) => {
+          response.should.have.status(422)
+          response.body.error.should.equal(
+            `Expected format: { name: <String>, calories: <String> }. You're missing a "name" property.`
+          )
+          done()
+        })
+    })
   })  
 })
