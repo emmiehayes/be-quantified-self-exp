@@ -47,6 +47,7 @@ describe('API Routes', () => {
       })
   })
 
+  // FOOD API ENDPOINT TESTING
   describe('GET /api/v1/foods', () => {
     it('should return all foods', done => {
       chai.request(server)
@@ -187,6 +188,142 @@ describe('API Routes', () => {
           response.should.have.status(422)
           response.body.error.should.equal(
             `Expected format: { name: <String>, calories: <String> }. You're missing a "name" property.`
+          )
+          done()
+        })
+    })
+  })  
+
+
+  // MEAL API ENDPOINTS TESTING
+  describe('GET /api/v1/meals', () => {
+    it('should return all meals', done => {
+      chai.request(server)
+        .get('/api/v1/meals')
+        .end((err, response) => {
+          response.should.have.status(200)
+          response.should.be.json
+          response.body.should.be.a('array')
+          response.body.length.should.equal(4)
+          // first record
+          response.body[0].should.have.property('name')
+          response.body[0].name.should.equal('Breakfast')
+
+          // last record
+          response.body[3].should.have.property('name')
+          response.body[3].name.should.equal('Snack')
+          done()
+        })
+    })
+  })
+
+  describe('GET /api/v1/meals/:id', () => {
+    it('should return a single meal', done => {
+      chai.request(server)
+        .get('/api/v1/meals/1')
+        .end((err, response) => {
+          response.should.have.status(200)
+          response.should.be.json
+          response.body.should.be.a('array')
+          response.body.length.should.equal(1)
+          // only record
+          response.body[0].should.have.property('name')
+          response.body[0].name.should.equal('Breakfast')
+          done()
+        })
+    })
+    it('should return a 404 if the id does not exist', done => {
+      chai.request(server)
+        .get('/api/v1/meals/765')
+        .end((err, response) => {
+          response.should.have.status(404)
+          done()
+        })
+    })
+  })
+
+  describe('POST /api/v1/meals', () => {
+    it('should create a new meal', done => {
+      chai.request(server)
+        .post('/api/v1/meals')
+        .send({
+          name: 'Brunch'
+        })
+        .end((err, response) => {
+          response.should.have.status(201)
+          response.body.should.be.a('object')
+          response.body.should.have.property('id')
+          done()
+        })
+    })
+    it('should not create a record with missing data', done => {
+      chai.request(server)
+        .post('/api/v1/meals')
+        .send({})
+        .end((err, response) => {
+          response.should.have.status(422)
+          response.body.error.should.equal(
+            `Expected format: { name: <String> }. You're missing a "name" property.`
+          )
+          done()
+        })
+    })
+  })
+
+  describe('DELETE /api/v1/meals/:id', () => {
+    it('should delete a meal', done => {
+      chai.request(server)
+        .delete('/api/v1/meals/1')
+        .end((error, response) => {
+          response.should.have.status(204)
+          done()
+        })
+    })
+    it('should return a 404 if the meal is not found', done => {
+      chai.request(server)
+        .delete('/api/v1/meal/678')
+        .end((error, response) => {
+          response.should.have.status(404)
+          done()
+        })
+    })
+  })
+
+  describe('PATCH /api/v1/meals/:id', () => {
+    it('should update a meal', done => {
+      chai.request(server)
+        .patch('/api/v1/meals/1')
+        .send({
+          name: 'Bfast'
+        })
+        .end((err, response) => {
+          response.should.have.status(202)
+          response.body.should.have.property('message')
+          response.body.message.should.eq('Meal with id:1 was successfully updated.')
+          done()
+        })
+    })
+
+    it('should return a 404 if the meal is not found', done => {
+      chai.request(server)
+        .patch('/api/v1/meals/679')
+        .send({
+          name: 'Supper'
+        })
+        .end((err, response) => {
+          response.should.have.status(404)
+          done()
+        })
+    })
+
+    it('should return a 422 if the request is missing data', done => {
+      chai.request(server)
+        .patch('/api/v1/meals/679')
+        .send({})
+        .end((err, response) => {
+          response.should.have.status(422)
+          response.body.error.should.equal(
+            `Expected format: { name: <String> }. You're missing a "name" property.`
           )
           done()
         })
