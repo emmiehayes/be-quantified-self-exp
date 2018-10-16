@@ -147,5 +147,21 @@ describe('API Routes', () => {
         })
     })
   })
-})
 
+  describe('PATCH /api/v1/foods/:id', () => {
+    it('should update a food', done => {
+      chai.request(server)
+        .patch('/api/v1/foods/1')
+        .send({
+          name: 'example',
+          calories: 'example1'
+        })
+        .end((err, response) => {
+          response.should.have.status(202)
+          response.body.should.have.property('message')
+          response.body.message.should.eq('Food with id:1 was successfully updated.')
+          done()
+        })        
+    })
+  })  
+})
