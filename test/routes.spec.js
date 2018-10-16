@@ -108,11 +108,26 @@ describe('API Routes', () => {
           calories: '10'
         })
         .end((err, response) => {
-          response.should.have.status(201);
-          response.body.should.be.a('object');
-          response.body.should.have.property('id');
-          done();
-        });
-    });
+          response.should.have.status(201)
+          response.body.should.be.a('object')
+          response.body.should.have.property('id')
+          done()
+        })
+    })
+
+    it('should not create a record with missing data', done => {
+      chai.request(server)
+        .post('/api/v1/foods')
+        .send({
+          name: 'DragonFruit'
+        })
+        .end((err, response) => {
+          response.should.have.status(422)
+          response.body.error.should.equal(
+            `Expected format: { name: <String>, calories: <String> }. You're missing a "calories" property.`
+          )
+          done()
+        })
+    })
   })
 })
