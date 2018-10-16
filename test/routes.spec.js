@@ -20,7 +20,6 @@ describe('Client Routes', () => {
         done()
       })
   })
-
   it('should return a 404 for a route that does not exist', done => {
     chai.request(server)
       .get('/sad')
@@ -114,7 +113,6 @@ describe('API Routes', () => {
           done()
         })
     })
-
     it('should not create a record with missing data', done => {
       chai.request(server)
         .post('/api/v1/foods')
@@ -130,4 +128,16 @@ describe('API Routes', () => {
         })
     })
   })
+
+  describe('DELETE /api/v1/foods/:id', () => {
+    it('should delete a food', done => {
+      chai.request(server)
+        .delete('/api/v1/foods/1')
+        .end((error, response) => {
+          response.should.have.status(204)
+          done()
+        })
+    })
+  })
 })
+
