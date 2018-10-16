@@ -57,16 +57,8 @@ describe('API Routes', () => {
           response.should.be.json
           response.body.should.be.a('array')
           response.body.length.should.equal(7)
-          // first record
           response.body[0].should.have.property('name')
-          response.body[0].name.should.equal('Strawberries')
           response.body[0].should.have.property('calories')
-          response.body[0].calories.should.equal('70')
-          // last record
-          response.body[4].should.have.property('name')
-          response.body[4].name.should.equal('Peach')
-          response.body[4].should.have.property('calories')
-          response.body[4].calories.should.equal('40')
           done()
         })
     })
@@ -195,49 +187,49 @@ describe('API Routes', () => {
   })  
 
 
-  // // MEAL API ENDPOINTS TESTING
-  // describe('GET /api/v1/meals', () => {
-  //   it('should return all meals with the associated foods', done => {
-  //     chai.request(server)
-  //       .get('/api/v1/meals')
-  //       .end((err, response) => {
-  //         response.should.have.status(200)
-  //         response.should.be.json
-  //         response.body.should.be.a('array')
-  //         response.body.length.should.equal(4)
-  //         // first record
-  //         response.body[0].should.have.property('id')
-  //         response.body[0].id.should.equal('1')
-  //         response.body[0].should.have.property('name')
-  //         response.body[0].name.should.equal('Breakfast')
-  //         response.body[0].should.have.property('foods')
-  //         response.body[0].foods.should.be.a('array')
-  //         response.body[0].foods.length.shouold.equal(3)
-  //         response.body[0].foods[0].should.have.property('id')
-  //         response.body[0].foods[0].should.have.property('1')
-  //         response.body[0].foods[0].should.have.property('name')
-  //         response.body[0].foods[0].should.have.property('Apple')
-  //         response.body[0].foods[0].should.have.property('calories')
-  //         response.body[0].foods[0].calories.should.equal('40')
+  // MEAL API ENDPOINTS TESTING
+  describe('GET /api/v1/meals', () => {
+    it('should return all meals with the associated foods', done => {
+      chai.request(server)
+        .get('/api/v1/meals')
+        .end((err, response) => {
+          response.should.have.status(200)
+          response.should.be.json
+          response.body.should.be.a('array')
+          response.body.length.should.equal(4)
+          // first record
+          response.body[0].should.have.property('id')
+          response.body[0].id.should.equal('1')
+          response.body[0].should.have.property('name')
+          response.body[0].name.should.equal('Breakfast')
+          response.body[0].should.have.property('foods')
+          response.body[0].foods.should.be.a('array')
+          response.body[0].foods.length.shouold.equal(3)
+          response.body[0].foods[0].should.have.property('id')
+          response.body[0].foods[0].should.have.property('1')
+          response.body[0].foods[0].should.have.property('name')
+          response.body[0].foods[0].should.have.property('Apple')
+          response.body[0].foods[0].should.have.property('calories')
+          response.body[0].foods[0].calories.should.equal('40')
 
-  //         // last record
-  //         response.body[3].should.have.property('id')
-  //         response.body[3].id.should.equal('4')
-  //         response.body[3].should.have.property('name')
-  //         response.body[3].name.should.equal('Snack')
-  //         response.body[3].should.have.property('foods')
-  //         response.body[3].foods.should.be.a('array')
-  //         response.body[3].foods.length.shouold.equal(3)
-  //         response.body[3].foods[3].should.have.property('id')
-  //         response.body[3].foods[3].should.have.property('1')
-  //         response.body[3].foods[3].should.have.property('name')
-  //         response.body[3].foods[3].should.have.property('Apple')
-  //         response.body[3].foods[3].should.have.property('calories')
-  //         response.body[3].foods[3].calories.should.equal('40')
-  //         done()
-  //       })
-  //   })
-  // })
+          // last record
+          response.body[3].should.have.property('id')
+          response.body[3].id.should.equal('4')
+          response.body[3].should.have.property('name')
+          response.body[3].name.should.equal('Snack')
+          response.body[3].should.have.property('foods')
+          response.body[3].foods.should.be.a('array')
+          response.body[3].foods.length.shouold.equal(3)
+          response.body[3].foods[3].should.have.property('id')
+          response.body[3].foods[3].should.have.property('1')
+          response.body[3].foods[3].should.have.property('name')
+          response.body[3].foods[3].should.have.property('Apple')
+          response.body[3].foods[3].should.have.property('calories')
+          response.body[3].foods[3].calories.should.equal('40')
+          done()
+        })
+    })
+  })
 
   // // describe('GET /api/v1/meals/:id', () => {
   // //   it('should return a single meal with the associated foods', done => {
