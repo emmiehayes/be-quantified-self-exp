@@ -8,6 +8,7 @@ const database = require('knex')(configuration)
 
 const foodsController = require('./lib/controllers/foods_controller')
 const mealsController = require('./lib/controllers/meals_controller')
+const mealFoodsController = require('./lib/controllers/meal_foods_controller')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -21,6 +22,7 @@ app.get('/', (request, response) => {
 
 const foods = require('./lib/routes/api/v1/foods')
 const meals = require('./lib/routes/api/v1/meals')
+
 
 app.use('/api/v1/foods', foods)
 app.use('/api/v1/meals', meals)

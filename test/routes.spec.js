@@ -245,53 +245,21 @@ describe('API Routes', () => {
     })
   })
 
-  // // describe('POST /api/v1/meals/:id/foods/:id', () => {
-  // //   it('should add a food to a meal', done => {
-  // //     chai.request(server)
-  // //       .post('/api/v1/meals/1/foods/5')
-  // //       .send({
-  // //         meal_id: 1,
-  // //         food_id: 5
-  // //       })
-  // //       .end((err, response) => {
-  // //         response.should.have.status(201)
-  // //         response.body.should.be.a('object')
-  // //         response.body.should.have.property('id')
-  // //         done()
-  // //       })
-  // //   })
-  // //   it('should not create a record with missing data', done => {
-  // //     chai.request(server)
-  // //       .post('/api/v1/meals')
-  // //       .send({
-  // //         meal_id: 1
-  // //       })
-  // //       .end((err, response) => {
-  // //         response.should.have.status(422)
-  // //         response.body.error.should.equal(
-  // //           `Expected format: { food_id: <Integer>, meal_id: <Integer> }. You're missing a "food id" property.`
-  // //         )
-  // //         done()
-  // //       })
-  // //   })
-  // // })
-
-  // // describe('DELETE /api/v1/meals/:id/foods/:id', () => {
-  // //   it('should delete food from a meal', done => {
-  // //     chai.request(server)
-  // //       .delete('/api/v1/meals/1/foods/2')
-  // //       .end((error, response) => {
-  // //         response.should.have.status(204)
-  // //         done()
-  // //       })
-  // //   })
-  // //   it('should return a 404 if the food is not found', done => {
-  // //     chai.request(server)
-  // //       .delete('/api/v1/meal/1/food/456')
-  // //       .end((error, response) => {
-  // //         response.should.have.status(404)
-  // //         done()
-  // //       })
-  // //   })
-  // // })
+  describe('POST /api/v1/meals/:meal_id/foods/:id', () => {
+    it('should add a food to a meal', done => {
+      chai.request(server)
+      .post('/api/v1/meals/1/foods/5')
+      .send({
+        food_id: 1,
+        meal_id: 2
+      })
+      .end((err, response) => {
+        response.should.have.status(201)
+        response.body.should.be.a('object')
+        response.body.should.have.property('message')
+        response.body.message.should.eq('Food was successfully added to meal')
+        done()
+      })
+    })
+  })
 })
