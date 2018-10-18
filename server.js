@@ -11,7 +11,8 @@ const foodsController = require('./lib/controllers/foods_controller')
 const mealsController = require('./lib/controllers/meals_controller')
 const mealFoodsController = require('./lib/controllers/meal_foods_controller')
 
-app.use(cors());
+app.use(cors())
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
