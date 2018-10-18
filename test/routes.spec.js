@@ -234,16 +234,16 @@ describe('API Routes', () => {
           done()
         })
     })
+
+    it('should return a 404 if the id does not exist', done => {
+      chai.request(server)
+        .get('/api/v1/meals/765')
+        .end((err, response) => {
+          response.should.have.status(404)
+          done()
+        })
+    })
   })
-  // //   it('should return a 404 if the id does not exist', done => {
-  // //     chai.request(server)
-  // //       .get('/api/v1/meals/765')
-  // //       .end((err, response) => {
-  // //         response.should.have.status(404)
-  // //         done()
-  // //       })
-  // //   })
-  // // })
 
   // // describe('POST /api/v1/meals/:id/foods/:id', () => {
   // //   it('should add a food to a meal', done => {
