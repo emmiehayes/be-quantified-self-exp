@@ -1,5 +1,4 @@
 const express = require('express')
-const cors = require('cors');
 const app = express()
 const bodyParser = require('body-parser')
 
@@ -11,12 +10,13 @@ const foodsController = require('./lib/controllers/foods_controller')
 const mealsController = require('./lib/controllers/meals_controller')
 const mealFoodsController = require('./lib/controllers/meal_foods_controller')
 
-app.use(cors())
-
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "DELETE, PATCH");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "POST, PUT, DELETE, PATCH");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
