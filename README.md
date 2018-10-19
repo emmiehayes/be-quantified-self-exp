@@ -1,5 +1,15 @@
 # Quantified Self- Express
 
+
+### Deployed with GitHub Pages:
+
+https://emmiehayes.github.io/fe-quantified-self/index.html
+
+### JavaScript Front Repo
+
+https://github.com/emmiehayes/fe-quantified-self
+
+
 # DOCUMENTATION
 
 ## Food Endpoints:
@@ -10,31 +20,36 @@
   
 ```
 [
-  {
+{
     "id": 1,
     "name": "Apple",
     "calories": "10"
-  },
-  {
+},
+{
     "id": 2,
     "name": "Banana",
-    "calories": "80"
-  },
-  {
+    "calories": "20"
+},
+{
     "id": 3,
     "name": "Orange",
     "calories": "30"
-  },
-  {
+},
+{
     "id": 4,
     "name": "Peach",
     "calories": "40"
-  },
-  {
+},
+{
     "id": 5,
     "name": "Plum",
     "calories": "50"
-  }
+},
+{
+    "id": 6,
+    "name": "Pear",
+    "calories": "60"
+}
 ]
 ```
 
@@ -56,6 +71,7 @@
 - ***Both name and calories are required parameters.*** 
 - If the food is not successfully created, a 400 status code will be returned. 
 - If successful, this request will return a response in the following format:
+- "food": food_id
   
 ```
 {
@@ -91,23 +107,39 @@
 ```
 [
     {
+        "id": 4,
+        "name": "Snack",
+        "foods": [
+            {
+                "id": 5,
+                "name": "Plum",
+                "calories": "50"
+            }
+        ]
+    },
+    {
         "id": 1,
         "name": "Breakfast",
         "foods": [
             {
-                "id": 4,
+                "id": 2,
                 "name": "Banana",
-                "calories": 140
+                "calories": "20"
+            },
+            {
+                "id": 4,
+                "name": "Peach",
+                "calories": "40"
+            },
+            {
+                "id": 1,
+                "name": "Apple",
+                "calories": "10"
             },
             {
                 "id": 3,
-                "name": "Waffle",
-                "calories": 67
-            },
-            {
-                "id": 12,
-                "name": "Honey",
-                "calories": 60
+                "name": "Orange",
+                "calories": "30"
             }
         ]
     },
@@ -116,15 +148,36 @@
         "name": "Lunch",
         "foods": [
             {
+                "id": 2,
+                "name": "Banana",
+                "calories": "20"
+            },
+            {
+                "id": 1,
+                "name": "Apple",
+                "calories": "10"
+            },
+            {
+                "id": 5,
+                "name": "Plum",
+                "calories": "50"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Dinner",
+        "foods": [
+            {
                 "id": 3,
-                "name": "Avocado",
-                "calories": 67
+                "name": "Orange",
+                "calories": "30"
             },
             {
                 "id": 4,
-                "name": "Toast",
-                "calories": 15
-            },
+                "name": "Peach",
+                "calories": "40"
+            }
         ]
     }
 ]
@@ -137,27 +190,24 @@
 - If successful, this request will return a response in the following format:
 
 ```
-{
-    "id": 1,
-    "name": "Breakfast",
-    "foods": [
-        {
-            "id": 1,
-            "name": "Banana",
-            "calories": 140
-        },
-        {
-            "id": 6,
-            "name": "Waffle",
-            "calories": 67
-        },
-        {
-            "id": 12,
-            "name": "Honey",
-            "calories": 60
-        }
-    ]
-}
+[
+    {
+        "id": 3,
+        "name": "Dinner",
+        "foods": [
+            {
+                "id": 3,
+                "name": "Orange",
+                "calories": "30"
+            },
+            {
+                "id": 4,
+                "name": "Peach",
+                "calories": "40"
+            }
+        ]
+    }
+]
 ```
 
 #### POST /api/v1/meals/:meal_id/foods/:id
@@ -181,7 +231,7 @@
 
 ```
 {
-    "message": "Successfully removed Banana from Breakfast"
+    "message": "Successfully removed Honey from Breakfast"
 }
 ```
 
